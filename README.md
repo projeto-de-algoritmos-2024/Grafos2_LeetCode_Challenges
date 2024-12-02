@@ -25,19 +25,19 @@ complexidade sobre grafos.
 
 Dificuldade: Difícil <br>
 Descrição do Problema: [Second Minimum Time to Reach Destination](https://leetcode.com/problems/second-minimum-time-to-reach-destination/description/)<br>
-Solução: ![2045](.\2045\2045.png)
+Solução: ![2045](./2045/2045.png)
 
 #### Exercício 02 - (743)Network Delay Time
 
 Dificuldade: Médio<br>
 Descrição do Problema: [Network Delay Time](https://leetcode.com/problems/network-delay-time/description/)<br>
-Solução: ![743](.\743\743.png)
+Solução: ![743](./743/743.png)
 
 #### Exercício 03 - (2290)Minimum Obstacle Removal to Reach Corner
 
 Dificuldade: Difícil<br>
 Descrição do Problema: [Minimum Obstacle Removal to Reach Corner](https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/description/)<br>
-Solução: ![2290](.\2290\2290.png)
+Solução: ![2290](./2290/2290.png)
 
 ## Instalação
 
