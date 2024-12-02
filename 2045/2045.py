@@ -1,40 +1,44 @@
-from collections import defaultdict, deque
-from typing import List
+from heapq import heappush, heappop
 
 class Solution:
-    def secondMinimum(self, n: int, edges: List[List[int]], time: int, change: int) -> int:
-        # Construir o grafo
-        graph = defaultdict(list)
+    def secondMinimum(self, num_nodes, edges, travel_time, light_cycle):
+       
+        # Cria listta de adjacencia par o grafo
+        graph = [[] for _ in range(num_nodes)]
         for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
+            graph[u - 1].append(v - 1)
+            graph[v - 1].append(u - 1)
         
-        queue = deque([(0, 1)])
+        # minimos
+        shortest_time = [float('inf')] * num_nodes
+        second_shortest_time = [float('inf')] * num_nodes
+        shortest_time[0] = 0
         
-
-        visited_times = {i: [] for i in range(1, n + 1)}
-        visited_times[1].append(0)
+        # prioridade
+        queue = [(0, 0)]  
         
         while queue:
-            elapsed, node = queue.popleft()
+            curr_time, curr_node = heappop(queue)
             
-            for neighbor in graph[node]:
-                cycle = elapsed // change
-                if cycle % 2 == 1:  
-                    wait_time = (cycle + 1) * change - elapsed
-                else:  
-                    wait_time = 0
+           
+            if curr_time > second_shortest_time[curr_node]:
+                continue
+            
+            for neighbor in graph[curr_node]:
                 
-                new_time = elapsed + time + wait_time
+                wait_time = 0
+                if (curr_time // light_cycle) % 2 == 1:  
+                    wait_time = light_cycle - (curr_time % light_cycle)
                 
-                if len(visited_times[neighbor]) < 2:
-                    visited_times[neighbor].append(new_time)
-                    visited_times[neighbor].sort() 
-                    queue.append((new_time, neighbor))
-                elif new_time not in visited_times[neighbor] and new_time > visited_times[neighbor][0]:
-                    visited_times[neighbor].append(new_time)
-                    visited_times[neighbor].sort()
-                    visited_times[neighbor] = visited_times[neighbor][:2]
-                    queue.append((new_time, neighbor))
+                arrival_time = curr_time + travel_time + wait_time
+                
+                # Atualiza minimos
+                if arrival_time < shortest_time[neighbor]:
+                    second_shortest_time[neighbor] = shortest_time[neighbor]
+                    shortest_time[neighbor] = arrival_time
+                    heappush(queue, (arrival_time, neighbor))
+                elif shortest_time[neighbor] < arrival_time < second_shortest_time[neighbor]:
+                    second_shortest_time[neighbor] = arrival_time
+                    heappush(queue, (arrival_time, neighbor))
         
-        return visited_times[n][1] if len(visited_times[n]) > 1 else -1
+        return second_shortest_time[num_nodes - 1]
