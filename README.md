@@ -12,7 +12,7 @@
 
 ## Apresentação
 
-A apresentação pode ser vista [aqui]().
+A apresentação pode ser vista [aqui](https://www.youtube.com/watch?v=fUiynOFuzL0).
 
 ## Sobre
 
